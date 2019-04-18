@@ -1,3 +1,5 @@
+Remember to run local json server using json-server --watch db.json
+
 # NgPrime
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.8.
