@@ -1,0 +1,63 @@
+
+<p-toast [style]="{marginTop: '80px'}"></p-toast>
+<div>
+    <h1>Value Changes {{dataChanges || dataChangedDropdown}}</h1>
+</div>
+<button pButton type="button" label="Show Changed Data" (click)="showChangedData($event)"></button>
+
+<p-table [value]="cars" [(contextMenuSelection)]="selectedCar" [contextMenu]="cm">
+  <ng-template pTemplate="header">
+      <tr>
+          <th>Vin</th>
+          <th>Year</th>
+          <th>Brand</th>
+          <th>Color</th>
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData>
+      <tr [pContextMenuRow]="rowData">
+        <td pEditableColumn>
+              <p-cellEditor (change)="cellEdit($event,rowData)" (change)="cellDirty($event)">
+                  <ng-template pTemplate="input">
+                      <input pInputText type="text" [(ngModel)]="rowData.vin">
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                      {{rowData.vin}}
+                  </ng-template>
+              </p-cellEditor>
+          </td>
+          <td pEditableColumn>
+              <p-cellEditor (change)="cellEdit($event,rowData)" (change)="cellDirty($event)">
+                  <ng-template pTemplate="input">
+                      <input pInputText type="text" [(ngModel)]="rowData.year" required>
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                      {{rowData.year}}
+                  </ng-template>
+              </p-cellEditor>
+          </td>
+          <td pEditableColumn>
+              <p-cellEditor (click)="cellDropDown($event,rowData)" (click)="cellDirty($event)">
+                  <ng-template pTemplate="input">
+                      <p-dropdown [options]="brands" [(ngModel)]="rowData.brand" [style]="{'width':'100%'}"></p-dropdown>
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                      {{rowData.brand}}
+                  </ng-template>
+              </p-cellEditor>
+          </td>
+          <td pEditableColumn>
+              <p-cellEditor (change)="cellEdit($event,rowData)" (change)="cellDirty($event)">
+                  <ng-template pTemplate="input">
+                      <input pInputText type="text" [(ngModel)]="rowData.color">
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                      {{rowData.color}}
+                  </ng-template>
+              </p-cellEditor>
+          </td>
+      </tr>
+  </ng-template>
+</p-table>
+
+<p-contextMenu #cm [model]="items"></p-contextMenu>
